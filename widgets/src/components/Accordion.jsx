@@ -8,26 +8,29 @@ const Accordion = ({ items }) => {
     setActiveIndex(index);
   };
 
-  const renderedItems = items.map((item, index) => (
-    <React.Fragment key={item.title}>
-      <div
-        aria-hidden="true"
-        className="title active"
-        onClick={() => onTitleClick(index)}
-        onKeyDown={() => onTitleClick(index)}
-      >
-        <i className="dropdown icon" />
-        {item.title}
-      </div>
-      <div className="content active">
-        <p>{item.content}</p>
-      </div>
-    </React.Fragment>
-  ));
+  const renderedItems = items.map((item, index) => {
+    const active = index === activeIndex ? 'active' : '';
+
+    return (
+      <React.Fragment key={item.title}>
+        <div
+          aria-hidden="true"
+          className={`title ${active}`}
+          onClick={() => onTitleClick(index)}
+          onKeyDown={() => onTitleClick(index)}
+        >
+          <i className="dropdown icon" />
+          {item.title}
+        </div>
+        <div className={`content ${active}`}>
+          <p>{item.content}</p>
+        </div>
+      </React.Fragment>
+    );
+  });
   return (
     <div className="ui styled accordion">
       {renderedItems}
-      <h1>{activeIndex}</h1>
     </div>
   );
 };
